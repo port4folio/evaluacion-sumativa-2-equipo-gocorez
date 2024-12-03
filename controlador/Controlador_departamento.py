@@ -1,4 +1,4 @@
-from database.ConexionBD import conectar
+from modelo.ConexionBD import conectar
 from modelo.Departamento import Departamento
 
 def agregar_departamento():
