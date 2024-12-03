@@ -54,8 +54,6 @@ class Empleado:
 
     def set_salario(self, salario):
         self.__salario = salario
-
-
         
     # ToString
     def __str__(self):

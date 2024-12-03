@@ -1,4 +1,4 @@
-from database.ConexionBD import conectar
+from controlador.database.ConexionBD import conectar
 from modelo.Empleado import Empleado
 
 def generar_email_unico(nombre, apellido):
