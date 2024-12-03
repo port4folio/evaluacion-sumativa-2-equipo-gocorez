@@ -1,2 +1,2 @@
-def menu_proryecto():
+def menu_proyecto():
     pass
