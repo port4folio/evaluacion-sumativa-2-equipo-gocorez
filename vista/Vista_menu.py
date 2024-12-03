@@ -30,8 +30,8 @@ while True:
         main_empleado()
     elif opcion == 2:
         main_departamento()
-    elif opcion == 3:
-        main_proyecto()
-    elif opcion == 4:
-        main_informes()
+    #elif opcion == 3:
+    #    main_proyecto()
+    #elif opcion == 4:
+    #    main_informes()
     break  
