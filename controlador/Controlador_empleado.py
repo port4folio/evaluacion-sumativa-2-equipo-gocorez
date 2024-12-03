@@ -32,8 +32,9 @@ def agregar_empleado(empleado):
             # Actualizar el email en el objeto empleado
             empleado.set_email(email)
 
-            cursor.execute("INSERT INTO empleado (nombre, direccion, telefono, email, fecha_inicio_contrato, salario) VALUES (%s, %s, %s, %s, %s, %s)",
+            cursor.execute("INSERT INTO empleado (nombre, apellido, direccion, telefono, email, fecha_inicio_contrato, salario) VALUES (%s, %s, %s, %s, %s, %s,%s)",
                            (empleado.get_nombre(), 
+                            empleado.get_apellido(),
                             empleado.get_direccion(),
                             empleado.get_telefono(), 
                             empleado.get_email(), 
@@ -53,5 +54,3 @@ def actualizar_empleado():
 def borrar_empleado():
     pass
 
-def linea_divisora_menu( arg_char = "=", line_length = 30):
-    print(arg_char * line_length)

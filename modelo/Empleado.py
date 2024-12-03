@@ -59,11 +59,4 @@ class Empleado:
         
     # ToString
     def __str__(self):
-        return f"Nombre:
-        {self.__nombre}\nApellido: 
-        {self.__apellido}\nDirección:
-        {self.__direccion}\nTeléfono:
-        {self.__telefono}\nEmail:
-        {self.__email}\nFecha de inicio contrato:
-        {self.__fecha_inicio_contrato}\nSalario: 
-        {self.__salario}"    
+        return f"Nombre:{self.__nombre}\nApellido:{self.__apellido}\nDirección:{self.__direccion}\nTeléfono:{self.__telefono}\nEmail:{self.__email}\nFecha de inicio contrato:{self.__fecha_inicio_contrato}\nSalario:{self.__salario}"    
