@@ -1,4 +1,5 @@
 
+
 def menu_departamento():
     print("____Menu Departamento____")
     print("1. Ingresar Departamento")

@@ -3,23 +3,18 @@ from vista.Vista_departamento import main_departamento
 import os
 
 def limpiar_consola():
-    os.system('cls')   
-
-def linea_divisora_menu( arg_char = "=", line_length = 30):
-    print(arg_char * line_length)
+        os.system('cls')   
 
 def menu_principal():
     limpiar_consola()
-    linea_divisora_menu()
-    print("    Menu Principal")
-    linea_divisora_menu()
+    print("    Menu Principal    ")
     print("____Elija una opción____")
     print("1.- Menu Empleados")
     print("2.- Menu Departamentos")
     print("3.- Menu Proyectos")
     print("4.- Informes")
     print("0.- Salir")
-    linea_divisora_menu()
+    
     opcion = int(input("Ingrese una opcion: "))
     return opcion
     

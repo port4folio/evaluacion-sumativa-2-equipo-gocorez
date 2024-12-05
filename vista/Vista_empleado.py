@@ -1,7 +1,6 @@
 from controlador.Controlador_empleado import agregar_empleado 
 from modelo.Empleado import Empleado
 
-
 def menu_empleado():
     print("____Menu Empleado____")
     print("1. Registrar Empleado")
