@@ -12,5 +12,21 @@ def mostrar_empleados(Informe):
             empleados=[]
             if len(empleados_encontrados)>0:
                 for empleado in empleados_encontrados:
-                    empleado_encontrado=Empleado()
+                    empleado_encontrado=Empleado(empleado[1],empleado[2],empleado[3],empleado[4],empleado[5],empleado[6],empleado[7])
+                    empleado_encontrado.set_id(empleado[0])
+                    empleados.append(empleado_encontrado)
+                return empleados
+            else:
+                return None
+        else:
+            return None
+    except Exception as e:
+        print(f"Error al conectar. {e}")
+    finally:
+        cursor.close()
+        conn.close()
+    
+                
+
+
                     
