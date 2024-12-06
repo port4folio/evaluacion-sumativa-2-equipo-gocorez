@@ -9,6 +9,7 @@ class Empleado:
         self.__email = email
         self.__fecha_inicio_contrato = fecha_inicio_contrato
         self.__salario = salario
+        self.__id = 0
    
 
     # Getters
@@ -32,6 +33,9 @@ class Empleado:
 
     def get_salario(self):
         return self.__salario
+    
+    def get_id(self):
+        return self.__id
 
     # Setters
     def set_nombre(self, nombre):
@@ -54,6 +58,9 @@ class Empleado:
 
     def set_salario(self, salario):
         self.__salario = salario
+
+    def set_id(self, id):
+        self.__id = id
         
     # ToString
     def __str__(self):
