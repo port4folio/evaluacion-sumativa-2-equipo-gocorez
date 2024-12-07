@@ -181,9 +181,6 @@ def obtener_empleados():
         conn.close()   
  
 def mostrar_empleados():
-
-
-
     conn=conectar()
     try:
         if conn is not None:
