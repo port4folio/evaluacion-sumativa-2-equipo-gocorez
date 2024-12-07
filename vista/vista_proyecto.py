@@ -68,7 +68,7 @@ def main_proyecto():
         elif opcion == 2:
             edit_proyecto()
         elif opcion == 3:
-            buscar_proyecto()
+            search_proyecto()
         elif opcion == 4:
             delete_proyecto()
         elif opcion == 5:
