@@ -1,3 +1,5 @@
+from modelo.Proyecto import Proyecto
+from controlador.Controlador_proyecto import agregar_proyecto, eliminar_proyecto, buscar_proyecto
 def menu_proyecto():
     print("____Menu Proyecto____")
     print("1. Crear Proyecto")
@@ -9,25 +11,42 @@ def menu_proyecto():
     opcion = int(input("Ingrese una opción: "))
     return opcion
 
-
-def add_proyecto():
-    pass
 # Aquí iría la función para agregar un proyecto
+def add_proyecto():
+    nombre_proyecto= input(print("Ingrese el nombre del proyecto: "))
+    descripcion_proyecto = input(print("Ingrese la descripción del proyecto: "))
+    fecha_inicio_proyecto = input(print("Ingrese la fecha de inicio del proyecto: "))
+    proyecto =Proyecto(nombre_proyecto, descripcion_proyecto, fecha_inicio_proyecto)
+    agregar_proyecto(proyecto)
 
 
+# Aquí iría la función para editar un proyecto
 def edit_proyecto():
     pass
-# Aquí iría la función para editar un proyecto
 
 
-def buscar_proyecto():
-    pass
 # Aquí iría la función para buscar un proyecto
+def search_proyecto():
+    nombre = input(print("Ingrese nombre del Proyecto: "))
+    proyecto = Proyecto(nombre)
+    return proyecto
 
-
-def delete_proyecto():
-    pass
 # Aquí iría la función para eliminar un proyecto
+def delete_proyecto():
+    proyecto = buscar_proyecto()
+    if proyecto  is not None:
+        print(f"Eliminará la proyecto  {proyecto .get_nombre()}")
+        print("¿Está seguro?")
+        print("1.- Si")
+        print("2.- No")
+        print("3.- Salir")
+        resp=int(input("Seleccione una opción: "))
+        if resp==1:
+            eliminar_proyecto(proyecto )
+        else:
+            print("Proyecto no eliminado")
+    else:
+        print("Proyecto no encontrado")
 
 
 def asignar_proyecto():
