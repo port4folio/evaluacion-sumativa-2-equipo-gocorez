@@ -61,8 +61,19 @@ def buscar_departamento(nombre):
         cursor.close()
         conn.close()
 
-def eliminar_departamento():
-    pass
+def eliminar_departamento(departamento):
+    conn=conectar()
+    try:
+        if conn is not None:
+            cursor=conn.cursor()
+            cursor.execute("DELETE FROM departamento WHERE nombre = %s",(departamento.get_nombre()))
+            conn.commit()
+            print("Departamento Eliminado")
+    except Exception as e:
+        print(f"no se eliminaron registros {e}")
+    finally:
+        cursor.close()
+        conn.close()
 
 def mostrar_departamentos():
     conn = conectar()  # Método para establecer conexión a la base de datos
