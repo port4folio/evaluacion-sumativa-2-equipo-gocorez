@@ -13,4 +13,5 @@ def buscar_departamento():
 def eliminar_departamento():
     pass
 
-
+def mostrar_departamentos():
+    pass
