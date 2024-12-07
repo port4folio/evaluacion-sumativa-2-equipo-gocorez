@@ -8,17 +8,17 @@ def menu_informes():
     return opcion
 
 def mostrar_empleados():
-    print("Mostrando informe de empleados: ")## pendiente llamar al metodo empleado. 
+    print("##### Mostrando informe de empleados: #####")## pendiente llamar al metodo empleado. 
 
 
 def mostrar_proyectos():# proyecto
-    print("Mostrando informe de proyectos: ")
+    print("###### Mostrando informe de proyectos: ######")
 
 def mostrar_departamentos():# Departamento 
-    print("Mostrando informe de departamentos: ")
+    print("###### Mostrando informe de departamentos: ######")
 
 def mostrar_registro_tiempo():#3 empleado 
-    print("Mostrando informe de registro de tiempo")
+    print("###### Mostrando informe de registro de tiempo ######")
 
 
 def main_informes():
