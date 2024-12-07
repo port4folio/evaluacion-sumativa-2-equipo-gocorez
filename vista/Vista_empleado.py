@@ -1,4 +1,4 @@
-from controlador.Controlador_empleado import agregar_empleado,eliminar_empleado, buscar_empleado_email, buscar_empleado_id, buscar_empleado_nombre, actualizar_empleado 
+from controlador.Controlador_empleado import agregar_empleado,eliminar_empleado, buscar_empleado_email, buscar_empleado_id, buscar_empleado_nombre, actualizar_empleado,registrar_tiempo 
 from modelo.Empleado import Empleado
 
 def menu_empleado():
@@ -7,8 +7,6 @@ def menu_empleado():
     print("2. Editar Empleado")
     print("3. Eliminar Empleado")
     print("4. Registrar horas trabajadas")
-    print("5. Asignar Proyecto")
-    print("6. Reasignar Proyecto")
     print("0. Salir")
     op = int(input("Ingrese una opción: "))
     return op 
@@ -30,11 +28,8 @@ def edit_empleado():
     print("1. Buscar por Nombre")
     print("2. Buscar por Email")
     print("3. Buscar por ID")
-    
     opción = int(input("Ingrese una opción: "))
-    
     empleado = None
-    
     if opción == 1:
         nombre = input("Ingrese el nombre del empleado: ")
         empleado = buscar_empleado_nombre(nombre)  # Método en controlador_empleado
@@ -47,7 +42,6 @@ def edit_empleado():
     else:
         print("Opción no válida")
         return
-    
     if empleado is not None:
         print("Empleado encontrado:")
         print(f"Nombre: {empleado.get_nombre()}")
@@ -94,11 +88,8 @@ def delete_empleado():
     print("1. Buscar por Nombre")
     print("2. Buscar por Email")
     print("3. Buscar por ID")
-    
     opción = int(input("Ingrese una opción: "))
-    
     empleado = None
-    
     if opción == 1:
         nombre = input("Ingrese el nombre del empleado: ")
         empleado = buscar_empleado_nombre(nombre)  # Método en controlador_empleado
@@ -111,7 +102,6 @@ def delete_empleado():
     else:
         print("Opción no válida")
         return
-    
     if empleado is not None:
         print("Empleado encontrado:")
         print(f"Nombre: {empleado.get_nombre()}")
@@ -131,14 +121,22 @@ def delete_empleado():
     else:
         print("Empleado no encontrado")
 
-def registrar_tiempo():
-    pass
+def record_time():
+    try:
+        print("=== Registrar Tiempo de Trabajo ===")
+        id_empleado = int(input("Ingrese el ID del empleado: "))
+        id_proyecto = int(input("Ingrese el ID del proyecto: "))
+        fecha = input("Ingrese la fecha: ")
+        horas_trabajadas = int(input("Ingrese la cantidad de horas trabajadas: "))
+        descripcion_tarea = input("Ingrese una breve descripción de las tareas realizadas: ")
 
-def asignar_proyecto():
-    pass
-
-def reasignar_proyecto():
-    pass
+        # Llama al controlador para registrar el tiempo
+        registrar_tiempo(id_empleado, id_proyecto, fecha, horas_trabajadas, descripcion_tarea)
+        print("El tiempo trabajado ha sido registrado exitosamente.")
+    except ValueError:
+        print("Error: Por favor, ingrese datos válidos. Asegúrese de usar números para IDs y horas.")
+    except Exception as e:
+        print(f"Se produjo un error al registrar el tiempo: {e}")
 
 def main_empleado():
     op = -1
@@ -151,10 +149,6 @@ def main_empleado():
         elif op == 3:
             delete_empleado()
         elif op == 4:
-            registrar_tiempo()
-        elif op == 5:
-            asignar_proyecto()
-        elif op == 6:
-            reasignar_proyecto()
+            record_time()
         else:
             print("Opción no válida")

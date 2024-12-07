@@ -114,8 +114,8 @@ def main_proyecto():
         elif opcion == 4:
             delete_proyecto()
         elif opcion == 5:
-            asignar_proyecto()
+            assign_proyecto()
         elif opcion == 6:
-            desvincular_proyecto()
+            unassign_proyecto()
         else:
             print("Opción no válida. Por favor, vuelva a intentarlo.")

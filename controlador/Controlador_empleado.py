@@ -204,5 +204,20 @@ def mostrar_empleados():
         cursor.close()
         conn.close()
 
-def mostrar_registro_tiempo():
-    pass            
+def registrar_tiempo(id_empleado, id_proyecto, fecha, horas_trabajadas, descripcion_tarea):
+    conn = conectar()  # Método para establecer conexión a la base de datos
+    try:
+        if conn is not None:
+            cursor = conn.cursor()
+            # Insertar el registro en la base de datos
+            cursor.execute("""
+                INSERT INTO registro_tiempo (id_empleado, id_proyecto, fecha, horas_trabajadas, descripcion_tarea)
+                VALUES (%s, %s, %s, %s, %s)
+            """, (id_empleado, id_proyecto, fecha, horas_trabajadas, descripcion_tarea))
+            conn.commit()
+            print("Registro de tiempo agregado exitosamente.")
+    except Exception as e:
+        print(f"Error al registrar el tiempo: {e}")
+    finally:
+        cursor.close()
+        conn.close()
