@@ -1,3 +1,5 @@
+from modelo.Proyecto import Proyecto
+from controlador.Controlador_proyecto import agregar_proyecto, eliminar_proyecto, buscar_proyecto
 def menu_proyecto():
     print("____Menu Proyecto____")
     print("1. Crear Proyecto")
@@ -10,11 +12,17 @@ def menu_proyecto():
     return opcion
 
 # Aquí iría la función para agregar un proyecto
+def add_proyecto():
+    nombre_proyecto= input(print("Ingrese el nombre del proyecto: "))
+    descripcion_proyecto = input(print("Ingrese la descripción del proyecto: "))
+    fecha_inicio_proyecto = input(print("Ingrese la fecha de inicio del proyecto: "))
+    proyecto =Proyecto(nombre_proyecto, descripcion_proyecto, fecha_inicio_proyecto)
+    agregar_proyecto(proyecto)
 
 
+# Aquí iría la función para editar un proyecto
 def edit_proyecto():
     pass
-# Aquí iría la función para editar un proyecto
 
 
 # Aquí iría la función para buscar un proyecto
