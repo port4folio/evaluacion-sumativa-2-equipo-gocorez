@@ -1,5 +1,6 @@
 from modelo.Proyecto import Proyecto
-from controlador.Controlador_proyecto import agregar_proyecto, eliminar_proyecto, buscar_proyecto,editar_proyecto
+
+from controlador.Controlador_proyecto import agregar_proyecto, eliminar_proyecto, buscar_proyecto,editar_proyecto,asignar_proyecto,desvincular_proyecto
 def menu_proyecto():
     print("____Menu Proyecto____")
     print("1. Crear Proyecto")
@@ -13,9 +14,9 @@ def menu_proyecto():
 
 # Aquí iría la función para agregar un proyecto
 def add_proyecto():
-    nombre_proyecto= input(print("Ingrese el nombre del proyecto: "))
-    descripcion_proyecto = input(print("Ingrese la descripción del proyecto: "))
-    fecha_inicio_proyecto = input(print("Ingrese la fecha de inicio del proyecto: "))
+    nombre_proyecto= input("Ingrese el nombre del proyecto: ")
+    descripcion_proyecto = input("Ingrese la descripción del proyecto: ")
+    fecha_inicio_proyecto = input("Ingrese la fecha de inicio del proyecto: ")
     proyecto =Proyecto(nombre_proyecto, descripcion_proyecto, fecha_inicio_proyecto)
     agregar_proyecto(proyecto)
 
@@ -72,15 +73,33 @@ def delete_proyecto():
         print("Proyecto no encontrado")
 
 
-def asignar_proyecto():
-    pass
-# Aquí iría la función para asignar un proyecto a un empleado
+def assign_proyecto(): # Aquí iría la función para asignar un proyecto a un empleado
+    try:
+        print("=== Asignar Proyecto ===")
+        empleado_id = int(input("Ingrese el ID del empleado: "))
+        proyecto_id = int(input("Ingrese el ID del proyecto: "))
+        
+        # Llama al controlador para realizar la asignación
+        asignar_proyecto(empleado_id, proyecto_id)
+        
+    except ValueError:
+        print("Error: Por favor, ingrese valores numéricos válidos para los IDs.")
+    except Exception as e:
+        print(f"Se produjo un error al asignar el proyecto: {e}")
 
 
-def desvincular_proyecto():
-    pass
-# Aquí iría la función para desvincular un proyecto de un empleado
 
+def unassign_proyecto(): # Aquí iría la función para desvincular un proyecto de un empleado
+    try:
+        print("=== Desvincular Proyecto ===")
+        empleado_id = int(input("Ingrese el ID del empleado: "))
+        proyecto_id = int(input("Ingrese el ID del proyecto: "))
+
+        desvincular_proyecto(empleado_id,proyecto_id)
+    except ValueError:
+        print("Error: Por favor, ingrese valores numéricos válidos para los IDs.")
+    except Exception as e:
+        print(f"Se produjo un error al desvincular el proyecto: {e}")
 
 def main_proyecto():
     opcion = -1

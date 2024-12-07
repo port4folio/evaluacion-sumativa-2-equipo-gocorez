@@ -89,3 +89,39 @@ def mostrar_proyectos():
     finally:
         cursor.close()
         conn.close()
+
+def asignar_proyecto(empleado_id, proyecto_id):
+    conn = conectar()  # Método para establecer conexión a la base de datos
+    try:
+        if conn is not None:
+            cursor = conn.cursor()
+            # Insertar la asignación en la tabla intermedia empleado_proyecto
+            cursor.execute("""
+                INSERT INTO empleado_proyecto (empleado_id, proyecto_id)
+                VALUES (%s, %s)
+            """, (empleado_id, proyecto_id))
+            conn.commit()
+            print("Proyecto asignado exitosamente.")
+    except Exception as e:
+        print(f"Error al asignar el proyecto: {e}")
+    finally:
+        cursor.close()
+        conn.close()
+
+def desvincular_proyecto(empleado_id, proyecto_id):
+    conn = conectar()  # Método para establecer conexión a la base de datos
+    try:
+        if conn is not None:
+            cursor = conn.cursor()
+            # Eliminar la asignación en la tabla intermedia empleado_proyecto
+            cursor.execute("""
+                DELETE FROM empleado_proyecto
+                WHERE empleado_id = %s AND proyecto_id = %s
+            """, (empleado_id, proyecto_id))
+            conn.commit()
+            print("Proyecto desvinculado exitosamente.")
+    except Exception as e:
+        print(f"Error al desvincular el proyecto: {e}")
+    finally:
+        cursor.close()
+        conn.close()
