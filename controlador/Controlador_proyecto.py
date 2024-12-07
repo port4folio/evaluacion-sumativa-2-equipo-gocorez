@@ -1,34 +1,91 @@
+from modelo.ConexionBD import conectar
 from modelo.Proyecto import Proyecto
 
-def agregar_proyecto(self, nombre, descripcion, fecha_inicio):
-        nuevo_proyecto = Proyecto(nombre, descripcion, fecha_inicio)  # Usa el constructor de Proyecto
-        self.proyectos.append(nuevo_proyecto)
-        print(f"Proyecto '{nombre}' agregado.")
+def agregar_proyecto(self, proyecto):
+    conn = conectar()  # Método para establecer conexión a la base de datos
+    try:
+        if conn is not None:
+            cursor = conn.cursor()
+            cursor.execute(
+                "INSERT INTO proyecto (nombre, descripcion, fecha_inicio) VALUES (%s, %s, %s)",
+                (proyecto.get_nombre(), proyecto.get_descripcion(), proyecto.get_fecha_inicio())
+            )
+            conn.commit()
+            print("Proyecto ingresado exitosamente.")
+    except Exception as e:
+        print(f"No se agregaron registros: {e}")
+    finally:
+        cursor.close()
+        conn.close()
 
-def editar_proyecto(self, nombre, nuevo_nombre=None, nueva_descripcion=None, nueva_fecha_inicio=None):
-    for proyecto in self.proyectos:
-        if proyecto.nombre == nombre:
-            if nuevo_nombre:
-                proyecto.nombre = nuevo_nombre
-            if nueva_descripcion:
-                proyecto.descripcion = nueva_descripcion
-            if nueva_fecha_inicio:
-                proyecto.fecha_inicio = nueva_fecha_inicio
-            print(f"Proyecto '{nombre}' editado.")
-            return
-    print(f"Proyecto '{nombre}' no encontrado.")
+def editar_proyecto(self, proyecto):
+    conn = conectar()  # Método para establecer conexión a la base de datos
+    try:
+        if conn is not None:
+            cursor = conn.cursor()
+            cursor.execute(
+                "UPDATE proyecto SET nombre = %s, descripcion = %s, fecha_inicio = %s WHERE id = %s",
+                (proyecto.get_nombre(), proyecto.get_descripcion(), proyecto.get_fecha_inicio(), proyecto.get_id())
+            )
+            conn.commit()
+            print("Proyecto actualizado exitosamente.")
+    except Exception as e:
+        print(f"Error al actualizar el proyecto: {e}")
+    finally:
+        cursor.close()
+        conn.close()
 
-def eliminar_proyecto(self, nombre):
-    for proyecto in self.proyectos:
-        if proyecto.nombre == nombre:
-            self.proyectos.remove(proyecto)
-            print(f"Proyecto '{nombre}' eliminado.")
-            return
-    print(f"Proyecto '{nombre}' no encontrado.")
+def buscar_proyecto(self, nombre):
+    conn = conectar()
+    try:
+        if conn is not None:
+            cursor = conn.cursor()
+            cursor.execute(
+                "SELECT id, nombre, descripcion, fecha_inicio FROM proyecto WHERE nombre = %s",
+                (nombre,)
+            )
+            proyecto = cursor.fetchone()
+            if proyecto is not None:
+                proyecto_encontrado = Proyecto(proyecto[1], proyecto[2], proyecto[3])  # Asumiendo que Proyecto tiene un constructor adecuado
+                proyecto_encontrado.set_id(proyecto[0])  # Asumiendo que tienes un método set_id
+                return proyecto_encontrado
+            else:
+                return None
+    except Exception as e:
+        print(f"Error al buscar el proyecto: {e}")
+    finally:
+        cursor.close()
+        conn.close()
+
+def eliminar_proyecto(self, proyecto):
+    conn = conectar()
+    try:
+        if conn is not None:
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM proyecto WHERE id = %s", (proyecto.get_id(),))
+            conn.commit()
+            print("Proyecto eliminado exitosamente.")
+    except Exception as e:
+        print(f"No se eliminaron registros: {e}")
+    finally:
+        cursor.close()
+        conn.close()
 
 def mostrar_proyectos(self):
-    if not self.proyectos:
-        print("No hay proyectos para mostrar.")
-        return
-    for proyecto in self.proyectos:
-        print(f"Nombre: {proyecto.nombre}, Descripción: {proyecto.descripcion}, Fecha de Inicio: {proyecto.fecha_inicio.strftime('%Y-%m-%d')}")
+    conn = conectar()  # Método para establecer conexión a la base de datos
+    try:
+        if conn is not None:
+            cursor = conn.cursor()
+            cursor.execute("SELECT id, nombre, descripcion, fecha_inicio FROM proyecto")
+            proyectos = cursor.fetchall()  # Recupera todos los registros
+
+            if proyectos:
+                for proyecto in proyectos:
+                    print(f"ID: {proyecto[0]}, Nombre: {proyecto[1]}, Descripción: {proyecto[2]}, Fecha de Inicio: {proyecto[3]}")
+            else:
+                print("No hay proyectos registrados.")
+    except Exception as e:
+        print(f"Error al mostrar proyectos: {e}")
+    finally:
+        cursor.close()
+        conn.close()
