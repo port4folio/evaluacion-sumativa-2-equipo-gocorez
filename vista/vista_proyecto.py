@@ -1,3 +1,6 @@
+from controlador.Controlador_proyecto import agregar_proyecto,editar_proyecto,buscar_proyecto,eliminar_proyecto,mostrar_proyectos
+from modelo.Proyecto import Proyecto
+
 def menu_proyecto():
     print("____Menu Proyecto____")
     print("1. Crear Proyecto")
@@ -15,9 +18,35 @@ def add_proyecto():
 # Aquí iría la función para agregar un proyecto
 
 
-def edit_proyecto():
-    pass
-# Aquí iría la función para editar un proyecto
+def edit_proyecto():  # Aquí iría la función para editar un proyecto
+    proyecto=buscar_proyecto()
+    if proyecto is not None:
+        print("Menu de editar")
+        print("1.-Nombre")
+        print("2.-Descripción")
+        print("3.-Fecha de inicio")
+        print("0.-Salir")
+        op=int(input("Seleccione una opcion: "))
+        if op==1:
+            print(f"El nombre actual es: {proyecto.nombre()}")
+            nombre=input("Ingrese el nuevo nombre: ")
+            proyecto.set_nombre(nombre)
+        elif op==2:
+            print(f"Su descripcion actual es: {proyecto.descripcion()}")
+            descripcion=input("Ingrese la nueva descripcion: ")
+            proyecto.set_descripcion(descripcion)
+        elif op==3:
+            print(f"Su fecha de inicio actual es: {proyecto.fecha_inicio()}")
+            fecha_inicio=input("Ingrese la nueva fecha de inicio: ")
+            proyecto.set_fecha_inicio(fecha_inicio)
+        else:
+            print("No se realizaron cambios")
+        editar_proyecto(proyecto)
+    else:
+        print("No se encontró el proyecto")
+    
+    
+   
 
 
 def buscar_proyecto():
