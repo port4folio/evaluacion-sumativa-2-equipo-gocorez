@@ -205,4 +205,4 @@ def mostrar_empleados():
         conn.close()
 
 def mostrar_registro_tiempo():
-        pass            
+    pass            

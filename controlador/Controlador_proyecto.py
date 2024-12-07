@@ -1,7 +1,7 @@
 from modelo.ConexionBD import conectar
 from modelo.Proyecto import Proyecto
 
-def agregar_proyecto(self, proyecto):
+def agregar_proyecto(proyecto):
     conn = conectar()  # Método para establecer conexión a la base de datos
     try:
         if conn is not None:
@@ -18,7 +18,7 @@ def agregar_proyecto(self, proyecto):
         cursor.close()
         conn.close()
 
-def editar_proyecto(self, proyecto):
+def editar_proyecto(proyecto):
     conn = conectar()  # Método para establecer conexión a la base de datos
     try:
         if conn is not None:
@@ -35,7 +35,7 @@ def editar_proyecto(self, proyecto):
         cursor.close()
         conn.close()
 
-def buscar_proyecto(self, nombre):
+def buscar_proyecto(nombre):
     conn = conectar()
     try:
         if conn is not None:
@@ -57,7 +57,7 @@ def buscar_proyecto(self, nombre):
         cursor.close()
         conn.close()
 
-def eliminar_proyecto(self, proyecto):
+def eliminar_proyecto(proyecto):
     conn = conectar()
     try:
         if conn is not None:
@@ -71,7 +71,7 @@ def eliminar_proyecto(self, proyecto):
         cursor.close()
         conn.close()
 
-def mostrar_proyectos(self):
+def mostrar_proyectos():
     conn = conectar()  # Método para establecer conexión a la base de datos
     try:
         if conn is not None:
