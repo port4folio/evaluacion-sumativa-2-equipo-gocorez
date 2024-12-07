@@ -17,7 +17,6 @@ def agregar_departamento(departamento):
         cursor.close()
         conn.close()
 
-
 def editar_departamento(departamento):
     conn = conectar()  # Método para establecer conexión a la base de datos
     try:
@@ -35,7 +34,6 @@ def editar_departamento(departamento):
     finally:
         cursor.close()
         conn.close()
-
 
 def buscar_departamento(nombre):
     conn=conectar()
