@@ -9,6 +9,7 @@ def menu_proyecto():
     print("4. Eliminar Proyecto")
     print("5. Asignar Proyecto")
     print("6. Desvincular Proyecto")
+    print("0. Salir")
     opcion = int(input("Ingrese una opción: "))
     return opcion
 
