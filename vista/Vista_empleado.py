@@ -1,4 +1,4 @@
-from controlador.Controlador_empleado import agregar_empleado,eliminar_empleado, buscar_empleado_email, buscar_empleado_id, buscar_empleado_nombre, actualizar_empleado,registrar_tiempo 
+from controlador.Controlador_empleado import agregar_empleado,eliminar_empleado, buscar_empleado,actualizar_empleado,registrar_tiempo,generar_email_unico
 from modelo.Empleado import Empleado
 
 def menu_empleado():
@@ -23,85 +23,57 @@ def add_empleado():
    
     
 def edit_empleado():
-    print("____Editar Empleado____")
-    print("Seleccione una opción de búsqueda:")
-    print("1. Buscar por Nombre")
-    print("2. Buscar por Email")
-    print("3. Buscar por ID")
-    opción = int(input("Ingrese una opción: "))
-    empleado = None
-    if opción == 1:
-        nombre = input("Ingrese el nombre del empleado: ")
-        empleado = buscar_empleado_nombre(nombre)  # Método en controlador_empleado
-    elif opción == 2:
-        email = input("Ingrese el email del empleado: ")
-        empleado = buscar_empleado_email(email)  # Método en controlador_empleado
-    elif opción == 3:
-        id_empleado = input("Ingrese el ID del empleado: ")
-        empleado = buscar_empleado_id(id_empleado)  # Método en controlador_empleado
-    else:
-        print("Opción no válida")
-        return
-    if empleado is not None:
-        print("Empleado encontrado:")
-        print(f"Nombre: {empleado.get_nombre()}")
-        print(f"Apellido: {empleado.get_apellido()}")
-        print(f"Dirección: {empleado.get_direccion()}")
-        print(f"Teléfono: {empleado.get_telefono()}")
-        print(f"Email: {empleado.get_email()}")
-        print(f"Fecha de inicio de contrato: {empleado.get_fecha_inicio_contrato()}")
-        print(f"Salario: {empleado.get_salario()}")
-        
-        # Permitir al usuario modificar los campos
-        nuevo_nombre = input("Ingrese el nuevo nombre (dejar en blanco para no cambiar): ")
-        nuevo_apellido = input("Ingrese el nuevo apellido (dejar en blanco para no cambiar): ")
-        nuevo_direccion = input("Ingrese la nueva dirección (dejar en blanco para no cambiar): ")
-        nuevo_telefono = input("Ingrese el nuevo teléfono (dejar en blanco para no cambiar): ")
-        nuevo_email = input("Ingrese el nuevo email (dejar en blanco para no cambiar): ")
-        nuevo_fecha_inicio_contrato = input("Ingrese la nueva fecha de inicio de contrato (dejar en blanco para no cambiar): ")
-        nuevo_salario = input("Ingrese el nuevo salario (dejar en blanco para no cambiar): ")
-        
-        # Actualizar solo los campos que no están en blanco
+    print("=== Editar Empleado ===")
+    try:
+        # Solicitar el nombre del empleado a editar
+        nombre_empleado = input("Ingrese el nombre del empleado a editar: ")
+
+        # Llamar al controlador para buscar el empleado
+        empleado = buscar_empleado(nombre_empleado)
+        if not empleado:
+            print("No se encontró un empleado con ese nombre.")
+            return
+
+        # Mostrar los datos actuales del empleado (sin el email, ya que es automático)
+        print(f"Empleado encontrado: ID: {empleado.get_id()}, Nombre: {empleado.get_nombre()}, Apellido: {empleado.get_apellido()}, "
+              f"Dirección: {empleado.get_direccion()}, Teléfono: {empleado.get_telefono()}, Email: {empleado.get_email()}, "
+              f"Fecha de inicio: {empleado.get_fecha_inicio_contrato()}, Salario: {empleado.get_salario()}")
+        # Solicitar los nuevos datos del empleado
+        nuevo_nombre = input("Ingrese el nuevo nombre del empleado (presione Enter para mantener el actual): ")
+        nuevo_apellido = input("Ingrese el nuevo apellido del empleado (presione Enter para mantener el actual): ")
+        nueva_direccion = input("Ingrese la nueva dirección del empleado (presione Enter para mantener la actual): ")
+        nuevo_telefono = input("Ingrese el nuevo teléfono del empleado (presione Enter para mantener el actual): ") 
+        nueva_fecha_inicio = input("Ingrese la nueva fecha de inicio de contrato del empleado (YYYY/MM/DD), presione Enter para mantener la actual): ")
+        nuevo_salario = input("Ingrese el nuevo salario del empleado (presione Enter para mantener el actual): ")
+        # Actualizar los datos del empleado
         if nuevo_nombre:
             empleado.set_nombre(nuevo_nombre)
         if nuevo_apellido:
             empleado.set_apellido(nuevo_apellido)
-        if nuevo_direccion:
-            empleado.set_direccion(nuevo_direccion)
+        if nueva_direccion:
+            empleado.set_direccion(nueva_direccion)
         if nuevo_telefono:
             empleado.set_telefono(nuevo_telefono)
-        if nuevo_email:
-            empleado.set_email(nuevo_email)
-        if nuevo_fecha_inicio_contrato:
-            empleado.set_fecha_inicio_contrato(nuevo_fecha_inicio_contrato)
+        if nueva_fecha_inicio:
+            empleado.set_fecha_inicio_contrato(nueva_fecha_inicio)
         if nuevo_salario:
             empleado.set_salario(nuevo_salario)
-        
-        # Llamar al método para actualizar el empleado
-        actualizar_empleado(empleado)  # Método en controlador_empleado
-    else:
-        print("Empleado no encontrado")
+
+        nuevo_email = generar_email_unico(nuevo_nombre,nuevo_apellido) 
+        empleado.set_email(nuevo_email)
+        # Llamar al controlador para actualizar el empleado
+        actualizar_empleado(empleado)
+    except ValueError:
+        print("Error: Por favor ingrese valores válidos.")
+    except Exception as e:
+        print(f"Error al editar empleado: {e}")
+
+
 
 def delete_empleado():
     print("____Eliminar Empleado____")
-    print("Seleccione una opción de búsqueda:")
-    print("1. Buscar por Nombre")
-    print("2. Buscar por Email")
-    print("3. Buscar por ID")
-    opción = int(input("Ingrese una opción: "))
-    empleado = None
-    if opción == 1:
-        nombre = input("Ingrese el nombre del empleado: ")
-        empleado = buscar_empleado_nombre(nombre)  # Método en controlador_empleado
-    elif opción == 2:
-        email = input("Ingrese el email del empleado: ")
-        empleado = buscar_empleado_email(email)  # Método en controlador_empleado
-    elif opción == 3:
-        id_empleado = input("Ingrese el ID del empleado: ")
-        empleado = buscar_empleado_id(id_empleado)  # Método en controlador_empleado
-    else:
-        print("Opción no válida")
-        return
+    nombre = input("Ingrese el nombre del empleado: ")
+    empleado = buscar_empleado(nombre)  # Método en controlador_empleado
     if empleado is not None:
         print("Empleado encontrado:")
         print(f"Nombre: {empleado.get_nombre()}")
@@ -114,8 +86,7 @@ def delete_empleado():
         
         confirmacion = input("¿Está seguro de que desea eliminar este empleado? (s/n): ")
         if confirmacion.lower() == 's':
-            eliminar_empleado(empleado.get_id())  # Método en controlador_empleado para eliminar
-            print("Empleado eliminado")
+            eliminar_empleado(empleado)  # Método en controlador_empleado para eliminar
         else:
             print("Eliminación cancelada")
     else:
