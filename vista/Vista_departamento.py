@@ -1,5 +1,5 @@
 from modelo.Departamento import Departamento
-from controlador.Controlador_departamento import agregar_departamento,editar_departamento,buscar_departamento,eliminar_departamento
+from controlador.Controlador_departamento import agregar_departamento,editar_departamento,buscar_departamento,eliminar_departamento,asignar_empleado_a_departamento,reasignar_empleado_a_departamento,obtener_empleados_por_departamento
 def menu_departamento():
     print("____Menu Departamento____")
     print("1. Ingresar Departamento")
@@ -7,6 +7,7 @@ def menu_departamento():
     print("3. Buscar Departamento")
     print("4. Eliminar Departamento")
     print("5. Asignar Departamento")
+    print("6. Reasignar Departamento")
     print("0. Salir")
     opcion = int(input("Ingrese una opción: "))
     return opcion
@@ -61,9 +62,56 @@ def delete_departamento(): # Aquí iría la función para eliminar un departamen
     else:
         print("Departamento no encontrado")
 
-def asignar_departamento():
-    pass
-# Aquí iría la función para asignar un departamento a un empleado
+def vista_asignar_empleado_departamento(): # Aquí iría la función para asignar un departamento a un empleado
+    print("=== Asignar Empleado a un Departamento ===")
+    try:
+        # Solicitar datos al usuario
+        id_empleado = int(input("Ingrese el ID del empleado: "))
+        id_departamento = int(input("Ingrese el ID del departamento: "))
+        # Llamar al controlador para asignar el empleado
+        asignar_empleado_a_departamento(id_empleado, id_departamento)
+        print("Empleado asignado al departamento exitosamente.")
+    except ValueError:
+        print("Error: Por favor ingrese valores numéricos válidos.")
+    except Exception as e:
+        print(f"Error al asignar empleado al departamento: {e}")
+
+
+def vista_reasignar_empleado_departamento():# Aquí iría la función para reasignar un departamento a un empleado
+    print("=== Reasignar Empleado a otro Departamento ===")
+    try:
+        # Solicitar datos al usuario
+        id_empleado = int(input("Ingrese el ID del empleado: "))
+        id_departamento = int(input("Ingrese el nuevo ID del departamento: "))
+        # Llamar al controlador para reasignar el empleado
+        reasignar_empleado_a_departamento(id_empleado, id_departamento)
+        print("Empleado reasignado exitosamente.")
+    except ValueError:
+        print("Error: Por favor ingrese valores numéricos válidos.")
+    except Exception as e:
+        print(f"Error al reasignar empleado al departamento: {e}")
+
+def vista_mostrar_empleados_por_departamento():
+    print("=== Mostrar Empleados por Departamento ===")
+    try:
+        # Solicitar el ID del departamento
+        id_departamento = int(input("Ingrese el ID del departamento: "))
+
+        # Llamar al controlador para obtener los empleados
+        empleados = obtener_empleados_por_departamento(id_departamento)
+
+        # Mostrar los resultados
+        if empleados:
+            print(f"Empleados en el Departamento {id_departamento}:")
+            for empleado in empleados:
+                print(f"- ID: {empleado[0]}, Nombre: {empleado[1]}")
+        else:
+            print("No hay empleados asignados a este departamento.")
+    except ValueError:
+        print("Error: Por favor ingrese un valor numérico válido.")
+    except Exception as e:
+        print(f"Error al mostrar empleados por departamento: {e}")
+
 
 def main_departamento():
     opcion = -1
@@ -78,7 +126,11 @@ def main_departamento():
         elif opcion == 4:
             delete_departamento()
         elif opcion == 5:
-            asignar_departamento()
+            vista_asignar_empleado_departamento()
+        elif opcion == 6:
+            vista_reasignar_empleado_departamento()
+        elif opcion == 7:
+            vista_mostrar_empleados_por_departamento()
         else:
             print("Opción no válida. Por favor, vuelva a intentarlo.")
 

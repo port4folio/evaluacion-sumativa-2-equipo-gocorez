@@ -91,3 +91,78 @@ def mostrar_departamentos():
     finally:
         cursor.close()
         conn.close()
+def asignar_empleado_a_departamento(id_empleado, id_departamento):
+    conn = conectar()
+    try:
+        if conn is not None:
+            cursor = conn.cursor()
+            # Verificar si el empleado ya está asignado a un departamento
+            cursor.execute("""
+                SELECT id_departamento FROM empleado WHERE id_empleado = %s
+            """, (id_empleado,))
+            resultado = cursor.fetchone()
+            
+            if resultado is None:
+                print(f"Empleado con ID {id_empleado} no encontrado.")
+                return
+
+            # Asignar o actualizar departamento
+            cursor.execute("""
+                UPDATE empleado
+                SET id_departamento = %s
+                WHERE id_empleado = %s
+            """, (id_departamento, id_empleado))
+            conn.commit()
+            print(f"Empleado {id_empleado} asignado al departamento {id_departamento}.")
+    except Exception as e:
+        print(f"Error al asignar empleado al departamento: {e}")
+    finally:
+        cursor.close()
+        conn.close()
+
+def reasignar_empleado_a_departamento(id_empleado, nuevo_id_departamento):
+    conn = conectar()
+    try:
+        if conn is not None:
+            cursor = conn.cursor()
+            # Verificar si el empleado existe
+            cursor.execute("""
+                SELECT id_departamento FROM empleado WHERE id_empleado = %s
+            """, (id_empleado,))
+            resultado = cursor.fetchone()
+            
+            if resultado is None:
+                print(f"Empleado con ID {id_empleado} no encontrado.")
+                return
+            # Actualizar con el nuevo departamento
+            cursor.execute("""
+                UPDATE empleado
+                SET id_departamento = %s
+                WHERE id_empleado = %s
+            """, (nuevo_id_departamento, id_empleado))
+            conn.commit()
+            print(f"Empleado {id_empleado} reasignado al departamento {nuevo_id_departamento}.")
+    except Exception as e:
+        print(f"Error al reasignar empleado al departamento: {e}")
+    finally:
+        cursor.close()
+        conn.close()
+def obtener_empleados_por_departamento(id_departamento):
+    conn = conectar()  # Método para establecer conexión a la base de datos
+    try:
+        if conn is not None:
+            cursor = conn.cursor()
+            # Consulta para obtener los empleados del departamento
+            cursor.execute("""
+                SELECT e.id_empleado, e.nombre
+                FROM empleado e
+                INNER JOIN departamento_empleado de ON e.id_empleado = de.id_empleado
+                WHERE de.id_departamento = %s
+            """, (id_departamento,))
+            return cursor.fetchall()  # Retorna una lista de tuplas con los datos de los empleados
+    except Exception as e:
+        print(f"Error al obtener empleados por departamento: {e}")
+        return []
+    finally:
+        cursor.close()
+        conn.close()
