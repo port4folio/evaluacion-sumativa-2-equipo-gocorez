@@ -1,6 +1,7 @@
 from modelo.ConexionBD import conectar
 from modelo.Proyecto import Proyecto
 
+
 def agregar_proyecto(proyecto):
     conn = conectar()  # Método para establecer conexión a la base de datos
     try:
@@ -122,6 +123,55 @@ def desvincular_proyecto(empleado_id, proyecto_id):
             print("Proyecto desvinculado exitosamente.")
     except Exception as e:
         print(f"Error al desvincular el proyecto: {e}")
+    finally:
+        cursor.close()
+        conn.close()
+
+def registrar_tiempo(id_empleado, id_proyecto, fecha, horas_trabajadas, descripcion_tarea):
+    conn = conectar()  # Método para establecer conexión a la base de datos
+    try:
+        if conn is not None:
+            cursor = conn.cursor()
+            # Insertar el registro en la base de datos
+            cursor.execute("""
+                INSERT INTO registro_tiempo (id_empleado, id_proyecto, fecha, horas_trabajadas, descripcion_tarea)
+                VALUES (%s, %s, %s, %s, %s)
+            """, (id_empleado, id_proyecto, fecha, horas_trabajadas, descripcion_tarea))
+            conn.commit()
+            print("Registro de tiempo agregado exitosamente.")
+    except Exception as e:
+        print(f"Error al registrar el tiempo: {e}")
+    finally:
+        cursor.close()
+        conn.close()
+
+def mostrar_registro_tiempo(id_empleado):
+    conn = conectar()
+    try:
+        if conn is not None:
+            cursor = conn.cursor
+            # Consulta para obtener los registros de tiempo del empleado
+            cursor.execute("""
+                SELECT id_registro, id_empleado, id_proyecto, fecha, horas_trabajadas, descripcion_tarea
+                FROM registro_tiempo
+                WHERE id_empleado = %s
+            """, (id_empleado,))
+            registros = cursor.fetchall()
+            if len(registros) > 0:
+                print(f"Registros de tiempo para el empleado con ID {id_empleado}:")
+                for registro in registros:
+                    print(f"""
+                        ID Registro: {registro[0]}
+                        ID Empleado: {registro[1]}
+                        ID Proyecto: {registro[2]}
+                        Fecha: {registro[3]}
+                        Horas Trabajadas: {registro[4]}
+                        Descripción: {registro[5]}
+                    """)
+            else:
+                print(f"No se encontraron registros de tiempo para el empleado con ID {id_empleado}.")
+    except Exception as e:
+        print(f"Error al consultar los registros de tiempo: {e}")
     finally:
         cursor.close()
         conn.close()

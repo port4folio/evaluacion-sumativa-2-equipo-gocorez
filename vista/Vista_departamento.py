@@ -1,5 +1,5 @@
 from modelo.Departamento import Departamento
-from controlador.Controlador_departamento import agregar_departamento,editar_departamento,buscar_departamento,eliminar_departamento,asignar_empleado_a_departamento,reasignar_empleado_a_departamento,obtener_empleados_por_departamento
+from controlador.Controlador_departamento import agregar_departamento,editar_departamento,buscar_departamento,eliminar_departamento,asignar_empleado_a_departamento,reasignar_empleado_a_departamento,obtener_empleados_por_departamento,actualizar_departamento
 def menu_departamento():
     print("____Menu Departamento____")
     print("1. Ingresar Departamento")
@@ -20,31 +20,38 @@ def add_departamento():
     agregar_departamento(departamento)
 
 def edit_departamento(): # Aquí iría la función para editar un departamento
-    departamento=buscar_departamento()
-    if departamento is not None:
-        print("Menu de edición")
-        print("1. Editar nombre")
-        print("2. Editar gerente")
-        print("0. Salir")
-        op=int(input("Seleccione una opción:"))
-        if op==1:
-            print(f"El nombre actual es: {departamento.get_nombre()}")
-            nombre=input("Ingrese nuevo nombre: ")
-            departamento.set_nombre(nombre)
-        elif op==2:
-            print(f"El gerente actual es: {departamento.get_gerente()}")
-            gerente=input("Ingrese nuevo gerente: ")
-            departamento.set_gerente(gerente)
+    try:
+        nombre_departamento=input("Ingrese el nombre del departamento que desea editar:")
+        departamento=buscar_departamento(nombre_departamento)
+        if departamento is not None:
+            print("Menu de edición")
+            print("1. Editar nombre")
+            print("2. Editar gerente")
+            print("0. Salir")
+            op=int(input("Seleccione una opción:"))
+            if op==1:
+                print(f"El nombre actual es: {departamento.get_nombre()}")
+                nombre=input("Ingrese nuevo nombre: ")
+                departamento.set_nombre(nombre)
+            elif op==2:
+                print(f"El gerente actual es: {departamento.get_gerente()}")
+                gerente=input("Ingrese nuevo gerente: ")
+                departamento.set_gerente(gerente)
+            else:
+                print("No se realizaron cambios")
+            editar_departamento(departamento)
+            actualizar_departamento(departamento)
         else:
-            print("No se realizaron cambios")
-        editar_departamento(departamento)
-    else:
-        print("departamento no encontrado")
+            print("departamento no encontrado")
+    except ValueError:
+        print("Error: Por favor ingrese valores válidos.")
+    except Exception as e:
+        print(f"Error al editar departamento: {e}")
 
 def search_departamento():# Aquí iría la función para buscar un departamento
     nombre=input("Ingrese el nombre del departamento a buscar: ")
     departamento=buscar_departamento(nombre)
-    return(departamento)
+    return departamento
 
 def delete_departamento(): # Aquí iría la función para eliminar un departamento
     departamento=search_departamento()
@@ -122,7 +129,7 @@ def main_departamento():
         elif opcion == 2:
             edit_departamento()
         elif opcion == 3:
-            buscar_departamento()
+            search_departamento()
         elif opcion == 4:
             delete_departamento()
         elif opcion == 5:

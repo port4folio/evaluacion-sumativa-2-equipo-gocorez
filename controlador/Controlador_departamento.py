@@ -28,7 +28,6 @@ def editar_departamento(departamento):
                 (departamento.get_nombre(), departamento.get_gerente(), departamento.get_nombre())
             )
             conn.commit()
-            print("Departamento actualizado exitosamente.")
     except Exception as e:
         print(f"Error al actualizar el departamento: {e}")
     finally:
@@ -41,16 +40,15 @@ def buscar_departamento(nombre):
         if conn is not None:
             cursor=conn.cursor()
             cursor.execute(
-                "SELECT id,nombre,gerente FROM departamento WHERE nombre=%s",
-                (nombre,)
-                )
+                "SELECT id_departamento,nombre,gerente FROM departamento WHERE nombre=%s",
+                (nombre,))
             departamento=cursor.fetchone()
             if departamento is not None:
-                departemento_encontrado=Departamento(departamento[1],departamento[2],departamento[3])
-                departemento_encontrado.set_id(departamento[0])
+                departamento_encontrado=Departamento(departamento[1],departamento[2])
+                departamento_encontrado.set_id(departamento[0])
             else:
-                departemento_encontrado=None
-            return departemento_encontrado
+                departamento_encontrado=None
+            return departamento_encontrado
         else:
             return None
     except Exception as e:
@@ -163,6 +161,23 @@ def obtener_empleados_por_departamento(id_departamento):
     except Exception as e:
         print(f"Error al obtener empleados por departamento: {e}")
         return []
+    finally:
+        cursor.close()
+        conn.close()
+        
+def actualizar_departamento(departamento):
+    conn = conectar()
+    try:
+        if conn is not None:
+            cursor = conn.cursor()
+            cursor.execute("UPDATE departamento SET nombre=%s, gerente=%s WHERE id_departamento=%s",
+                           (departamento.get_nombre(),
+                            departamento.get_gerente(),
+                            departamento.get_id()))
+            conn.commit()
+            print("Departamento actualizado")
+    except Exception as e:
+        print(f"No se actualizaron registros: {e}")
     finally:
         cursor.close()
         conn.close()

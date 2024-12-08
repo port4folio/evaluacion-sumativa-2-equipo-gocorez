@@ -1,14 +1,15 @@
 from modelo.Proyecto import Proyecto
 
-from controlador.Controlador_proyecto import agregar_proyecto, eliminar_proyecto, buscar_proyecto,editar_proyecto,asignar_proyecto,desvincular_proyecto
+from controlador.Controlador_proyecto import agregar_proyecto, eliminar_proyecto, buscar_proyecto,editar_proyecto,asignar_proyecto,desvincular_proyecto,registrar_tiempo
 def menu_proyecto():
     print("____Menu Proyecto____")
     print("1. Crear Proyecto")
     print("2. Editar Proyecto")
     print("3. Buscar Proyecto")
     print("4. Eliminar Proyecto")
-    print("5. Asignar Proyecto")
-    print("6. Desvincular Proyecto")
+    print("5. Asignar Empleado a Proyecto ")
+    print("6. Desvincular Empleado de Proyecto")
+    print("7. Registrar Tiempo")
     print("0. Salir")
     opcion = int(input("Ingrese una opción: "))
     return opcion
@@ -102,6 +103,24 @@ def unassign_proyecto(): # Aquí iría la función para desvincular un proyecto 
     except Exception as e:
         print(f"Se produjo un error al desvincular el proyecto: {e}")
 
+def record_time():
+    try:
+        print("=== Registrar Tiempo de Trabajo ===")
+        id_empleado = int(input("Ingrese el ID del empleado: "))
+        id_proyecto = int(input("Ingrese el ID del proyecto: "))
+        fecha = input("Ingrese la fecha: ")
+        horas_trabajadas = int(input("Ingrese la cantidad de horas trabajadas: "))
+        descripcion_tarea = input("Ingrese una breve descripción de las tareas realizadas: ")
+
+        # Llama al controlador para registrar el tiempo
+        registrar_tiempo(id_empleado, id_proyecto, fecha, horas_trabajadas, descripcion_tarea)
+        print("El tiempo trabajado ha sido registrado exitosamente.")
+    except ValueError:
+        print("Error: Por favor, ingrese datos válidos. Asegúrese de usar números para IDs y horas.")
+    except Exception as e:
+        print(f"Se produjo un error al registrar el tiempo: {e}")
+
+
 def main_proyecto():
     opcion = -1
     while opcion != 0:
@@ -118,5 +137,7 @@ def main_proyecto():
             assign_proyecto()
         elif opcion == 6:
             unassign_proyecto()
+        elif opcion == 7:
+            record_time()
         else:
             print("Opción no válida. Por favor, vuelva a intentarlo.")

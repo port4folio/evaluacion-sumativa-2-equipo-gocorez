@@ -1,4 +1,4 @@
-from controlador.Controlador_empleado import agregar_empleado,eliminar_empleado, buscar_empleado,actualizar_empleado,registrar_tiempo,generar_email_unico
+from controlador.Controlador_empleado import agregar_empleado,eliminar_empleado, buscar_empleado,actualizar_empleado,generar_email_unico
 from modelo.Empleado import Empleado
 
 def menu_empleado():
@@ -6,7 +6,6 @@ def menu_empleado():
     print("1. Registrar Empleado")
     print("2. Editar Empleado")
     print("3. Eliminar Empleado")
-    print("4. Registrar horas trabajadas")
     print("0. Salir")
     op = int(input("Ingrese una opción: "))
     return op 
@@ -92,22 +91,6 @@ def delete_empleado():
     else:
         print("Empleado no encontrado")
 
-def record_time():
-    try:
-        print("=== Registrar Tiempo de Trabajo ===")
-        id_empleado = int(input("Ingrese el ID del empleado: "))
-        id_proyecto = int(input("Ingrese el ID del proyecto: "))
-        fecha = input("Ingrese la fecha: ")
-        horas_trabajadas = int(input("Ingrese la cantidad de horas trabajadas: "))
-        descripcion_tarea = input("Ingrese una breve descripción de las tareas realizadas: ")
-
-        # Llama al controlador para registrar el tiempo
-        registrar_tiempo(id_empleado, id_proyecto, fecha, horas_trabajadas, descripcion_tarea)
-        print("El tiempo trabajado ha sido registrado exitosamente.")
-    except ValueError:
-        print("Error: Por favor, ingrese datos válidos. Asegúrese de usar números para IDs y horas.")
-    except Exception as e:
-        print(f"Se produjo un error al registrar el tiempo: {e}")
 
 def main_empleado():
     op = -1
@@ -119,7 +102,5 @@ def main_empleado():
             edit_empleado()
         elif op == 3:
             delete_empleado()
-        elif op == 4:
-            record_time()
         else:
             print("Opción no válida")
