@@ -48,22 +48,28 @@ def edit_departamento(): # Aquí iría la función para editar un departamento
     except Exception as e:
         print(f"Error al editar departamento: {e}")
 
-def search_departamento():# Aquí iría la función para buscar un departamento
-    nombre=input("Ingrese el nombre del departamento a buscar: ")
-    departamento=buscar_departamento(nombre)
+def search_departamento():
+    nombre = input("Ingrese el nombre del departamento a buscar: ")
+    departamento = buscar_departamento(nombre)
+    if departamento:
+        print("=== Departamento Encontrado ===")
+        print(departamento)  # Llama al método __str__ del modelo Departamento
+    else:
+        print("No se encontró un departamento con ese nombre.")
     return departamento
 
 def delete_departamento(): # Aquí iría la función para eliminar un departamento
-    departamento=search_departamento()
+    nombre=input("Ingrese nombre del departamento a eliminar:")
+    departamento=buscar_departamento(nombre)
     if departamento is not None:
         print(f"Eliminar departamento {departamento.get_nombre()}")
         print("¿Esta Seguro?")
         print("1.-Si")
         print("2.-No")
         print("3.-Salir")
-        resp=int(input("Seleccione una opción: "))
-        if resp==1:
-            eliminar_departamento(departamento)
+        resp=(input("Seleccione una opción: "))
+        if resp.lower()=="si":
+            eliminar_departamento(departamento.get_nombre())
         else:
             print("Departamento no eliminado")
     else:
