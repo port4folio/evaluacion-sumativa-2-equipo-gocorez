@@ -53,7 +53,7 @@ def actualizar_empleado(empleado):
     try:
         if conn is not None:
             cursor = conn.cursor()
-            cursor.execute("UPDATE empleado SET nombre=%s, apellido=%s, direccion=%s, telefono=%s, email=%s, fecha_inicio_contrato=%s, salario=%s WHERE id=%s",
+            cursor.execute("UPDATE empleado SET nombre=%s, apellido=%s, direccion=%s, telefono=%s, email=%s, fecha_inicio_contrato=%s, salario=%s WHERE id_empleado=%s",
                            (empleado.get_nombre(),
                             empleado.get_apellido(),
                             empleado.get_direccion(),
@@ -75,7 +75,7 @@ def eliminar_empleado(empleado):
     try:
         if conn is not None:
             cursor=conn.cursor()
-            cursor.execute("DELETE FROM empleado WHERE id=%s",
+            cursor.execute("DELETE FROM empleado WHERE id_empleado=%s",
                         (empleado.get_id(),))
             conn.commit()
             print("Empleado eliminado")
@@ -85,7 +85,7 @@ def eliminar_empleado(empleado):
         cursor.close()
         conn.close()
 
-def buscar_empleado_nombre(nombre):
+def buscar_empleado(nombre):
     conn=conectar()
     try:
         if conn is not None:
@@ -95,7 +95,7 @@ def buscar_empleado_nombre(nombre):
                 (nombre,))
             empleado = cursor.fetchone()
             if empleado  is not None:
-                empleado_encontrado=Empleado(empleado [1],empleado [2],empleado [3],empleado [4],empleado [5])
+                empleado_encontrado=Empleado(empleado [1],empleado [2],empleado [3],empleado [4],empleado [5],empleado[6],empleado[7])
                 empleado_encontrado.set_id(empleado [0])
             else:
                 empleado_encontrado=None
@@ -107,54 +107,6 @@ def buscar_empleado_nombre(nombre):
     finally:
         cursor.close()
         conn.close()
-
-def buscar_empleado_id(id):
-    conn=conectar()
-    try:
-        if conn is not None:
-            cursor=conn.cursor()
-            cursor.execute(
-                "SELECT * FROM empleado WHERE id=%s",
-                (id,)
-                )
-            empleado=cursor.fetchone()
-            if empleado is not None:
-                empleado_encontrado=Empleado(empleado[1],empleado[2],empleado[3],empleado[4],empleado[5])
-                empleado_encontrado.set_id(empleado[0])
-            else:
-                empleado_encontrado=None
-            return empleado_encontrado
-        else:
-            return None
-    except Exception as e:
-        print(f"Error al conectar. {e}")
-    finally:
-        cursor.close()
-        conn.close()
-
-def buscar_empleado_email(email):
-    conn=conectar()
-    try:
-        if conn is not None:
-            cursor=conn.cursor()
-            cursor.execute(
-                "SELECT * FROM empleado WHERE email=%s",
-                (email,)
-                )
-            empleado=cursor.fetchone()
-            if empleado is not None:
-                empleado_encontrado=Empleado(empleado[1],empleado[2],empleado[3],empleado[4],empleado[5])
-                empleado_encontrado.set_id(empleado[0])
-            else:
-                empleado_encontrado=None
-            return empleado_encontrado
-        else:
-            return None
-    except Exception as e:
-        print(f"Error al conectar. {e}")
-    finally:
-        cursor.close()
-        conn.close()        
 
 def obtener_empleados():
     conn=conectar()
