@@ -9,13 +9,13 @@ def limpiar_consola():
 
 def menu_principal():
     limpiar_consola()
-    print("    Menu Principal    ")
+    print("##### Menu Principal ##### ")
     print("____Elija una opción____")
     print("1.- Menu Empleados")
     print("2.- Menu Departamentos")
     print("3.- Menu Proyectos")
     print("4.- Informes")
-    print("0.- Salir")
+    print("===========================")
     opcion = int(input("Ingrese una opcion: "))
     return opcion
     

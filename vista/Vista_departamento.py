@@ -58,6 +58,19 @@ def search_departamento():
         print("No se encontró un departamento con ese nombre.")
     return departamento
 
+def delete_departamento(): # Aquí iría la función para eliminar un departamento
+    nombre=input("Ingrese nombre del departamento a eliminar:")
+    departamento=buscar_departamento(nombre)
+    if departamento is not None:
+        print(f"Eliminar departamento {departamento.get_nombre()}")
+        print("¿Esta Seguro?")
+        print("1.-Si")
+        print("2.-No")
+        print("3.-Salir")
+        resp=int(input("Seleccione una opción: "))
+        if resp == 1:
+            eliminar_departamento(departamento)
+
 def delete_departamento():
     print("=== Eliminar Departamento ===")
     try:
@@ -82,6 +95,7 @@ def delete_departamento():
                 print("Operación cancelada.")
             else:
                 print("Opción inválida. Operación cancelada.")
+
         else:
             print("Departamento no encontrado.")
     except Exception as e:
