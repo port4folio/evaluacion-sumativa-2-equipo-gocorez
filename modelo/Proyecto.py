@@ -1,8 +1,8 @@
 class Proyecto:
     
-    def __init__(self, nombre,descrpcion, fecha_inicio):
+    def __init__(self, nombre,descripcion, fecha_inicio):
         self.__nombre = nombre
-        self.__descripcion = descrpcion
+        self.__descripcion = descripcion
         self.__fecha_inicio = fecha_inicio
         self.__id = 0
 # Getters

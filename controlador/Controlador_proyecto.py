@@ -25,7 +25,7 @@ def editar_proyecto(proyecto):
         if conn is not None:
             cursor = conn.cursor()
             cursor.execute(
-                "UPDATE proyecto SET nombre = %s, descripcion = %s, fecha_inicio = %s WHERE id = %s",
+                "UPDATE proyecto SET nombre = %s, descripcion = %s, fecha_inicio = %s WHERE id_proyecto = %s",
                 (proyecto.get_nombre(), proyecto.get_descripcion(), proyecto.get_fecha_inicio(), proyecto.get_id())
             )
             conn.commit()
@@ -42,7 +42,7 @@ def buscar_proyecto(nombre):
         if conn is not None:
             cursor = conn.cursor()
             cursor.execute(
-                "SELECT id, nombre, descripcion, fecha_inicio FROM proyecto WHERE nombre = %s",
+                "SELECT id_proyecto, nombre, descripcion, fecha_inicio FROM proyecto WHERE nombre = %s",
                 (nombre,)
             )
             proyecto = cursor.fetchone()
@@ -63,7 +63,7 @@ def eliminar_proyecto(proyecto):
     try:
         if conn is not None:
             cursor = conn.cursor()
-            cursor.execute("DELETE FROM proyecto WHERE id = %s", (proyecto.get_id(),))
+            cursor.execute("DELETE FROM proyecto WHERE id_proyecto = %s", (proyecto.get_id(),))
             conn.commit()
             print("Proyecto eliminado exitosamente.")
     except Exception as e:
@@ -77,7 +77,7 @@ def mostrar_proyectos():
     try:
         if conn is not None:
             cursor = conn.cursor()
-            cursor.execute("SELECT id, nombre, descripcion, fecha_inicio FROM proyecto")
+            cursor.execute("SELECT id_proyecto, nombre, descripcion, fecha_inicio FROM proyecto")
             proyectos = cursor.fetchall()  # Recupera todos los registros
 
             if proyectos:
@@ -91,16 +91,16 @@ def mostrar_proyectos():
         cursor.close()
         conn.close()
 
-def asignar_proyecto(empleado_id, proyecto_id):
+def asignar_proyecto(id_empleado, id_proyecto):
     conn = conectar()  # Método para establecer conexión a la base de datos
     try:
         if conn is not None:
             cursor = conn.cursor()
             # Insertar la asignación en la tabla intermedia empleado_proyecto
             cursor.execute("""
-                INSERT INTO empleado_proyecto (empleado_id, proyecto_id)
+                INSERT INTO empleado_proyecto (id_empleado, id_proyecto)
                 VALUES (%s, %s)
-            """, (empleado_id, proyecto_id))
+            """, (id_empleado, id_proyecto))
             conn.commit()
             print("Proyecto asignado exitosamente.")
     except Exception as e:
@@ -109,7 +109,7 @@ def asignar_proyecto(empleado_id, proyecto_id):
         cursor.close()
         conn.close()
 
-def desvincular_proyecto(empleado_id, proyecto_id):
+def desvincular_proyecto(id_empleado, id_proyecto):
     conn = conectar()  # Método para establecer conexión a la base de datos
     try:
         if conn is not None:
@@ -117,8 +117,8 @@ def desvincular_proyecto(empleado_id, proyecto_id):
             # Eliminar la asignación en la tabla intermedia empleado_proyecto
             cursor.execute("""
                 DELETE FROM empleado_proyecto
-                WHERE empleado_id = %s AND proyecto_id = %s
-            """, (empleado_id, proyecto_id))
+                WHERE id_empleado = %s AND id_proyecto = %s
+            """, (id_empleado, id_proyecto))
             conn.commit()
             print("Proyecto desvinculado exitosamente.")
     except Exception as e:
@@ -145,31 +145,19 @@ def registrar_tiempo(id_empleado, id_proyecto, fecha, horas_trabajadas, descripc
         cursor.close()
         conn.close()
 
-def mostrar_registro_tiempo(id_empleado):
+def mostrar_registro_tiempo():
     conn = conectar()
     try:
         if conn is not None:
-            cursor = conn.cursor
+            cursor = conn.cursor()
             # Consulta para obtener los registros de tiempo del empleado
-            cursor.execute("""
-                SELECT id_registro, id_empleado, id_proyecto, fecha, horas_trabajadas, descripcion_tarea
-                FROM registro_tiempo
-                WHERE id_empleado = %s
-            """, (id_empleado,))
+            cursor.execute("SELECT id_registro, id_empleado, id_proyecto, fecha, horas_trabajadas, descripcion_tarea FROM registro_tiempo")
             registros = cursor.fetchall()
-            if len(registros) > 0:
-                print(f"Registros de tiempo para el empleado con ID {id_empleado}:")
+            if registros:
                 for registro in registros:
-                    print(f"""
-                        ID Registro: {registro[0]}
-                        ID Empleado: {registro[1]}
-                        ID Proyecto: {registro[2]}
-                        Fecha: {registro[3]}
-                        Horas Trabajadas: {registro[4]}
-                        Descripción: {registro[5]}
-                    """)
+                    print(f"ID Registro: {registro[0]},ID Empleado: {registro[1]},ID Proyecto: {registro[2]},Fecha: {registro[3]},Horas Trabajadas: {registro[4]},Descripción: {registro[5]}")
             else:
-                print(f"No se encontraron registros de tiempo para el empleado con ID {id_empleado}.")
+                print("No se encontraron registros de tiempo")
     except Exception as e:
         print(f"Error al consultar los registros de tiempo: {e}")
     finally:

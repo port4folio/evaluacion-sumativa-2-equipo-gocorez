@@ -25,7 +25,8 @@ def add_proyecto():
 
 # Aquí iría la función para editar un proyecto
 def edit_proyecto():  # Aquí iría la función para editar un proyecto
-    proyecto=buscar_proyecto()
+    nombre_proyecto=input("Ingrese nombre del proyecto a editar: ")
+    proyecto=buscar_proyecto(nombre_proyecto)
     if proyecto is not None:
         print("Menu de editar")
         print("1.-Nombre")
@@ -34,15 +35,15 @@ def edit_proyecto():  # Aquí iría la función para editar un proyecto
         print("0.-Salir")
         op=int(input("Seleccione una opcion: "))
         if op==1:
-            print(f"El nombre actual es: {proyecto.nombre()}")
+            print(f"El nombre actual es: {proyecto.get_nombre()}")
             nombre=input("Ingrese el nuevo nombre: ")
             proyecto.set_nombre(nombre)
         elif op==2:
-            print(f"Su descripcion actual es: {proyecto.descripcion()}")
+            print(f"Su descripcion actual es: {proyecto.get_descripcion()}")
             descripcion=input("Ingrese la nueva descripcion: ")
             proyecto.set_descripcion(descripcion)
         elif op==3:
-            print(f"Su fecha de inicio actual es: {proyecto.fecha_inicio()}")
+            print(f"Su fecha de inicio actual es: {proyecto.get_fecha_inicio()}")
             fecha_inicio=input("Ingrese la nueva fecha de inicio: ")
             proyecto.set_fecha_inicio(fecha_inicio)
         else:
@@ -53,26 +54,38 @@ def edit_proyecto():  # Aquí iría la función para editar un proyecto
 
 # Aquí iría la función para buscar un proyecto
 def search_proyecto():
-    nombre = input(print("Ingrese nombre del Proyecto: "))
-    proyecto = Proyecto(nombre)
+    nombre = input("Ingrese nombre del Proyecto: ")
+    proyecto = buscar_proyecto(nombre)
+    if proyecto:
+        print("===Proyecto encontrado===")
+        print(proyecto)
+    else:
+        print("No se encontró el proyecto")
     return proyecto
 
 # Aquí iría la función para eliminar un proyecto
 def delete_proyecto():
-    proyecto = buscar_proyecto()
-    if proyecto  is not None:
-        print(f"Eliminará la proyecto  {proyecto .get_nombre()}")
-        print("¿Está seguro?")
-        print("1.- Si")
-        print("2.- No")
-        print("3.- Salir")
-        resp=int(input("Seleccione una opción: "))
-        if resp==1:
-            eliminar_proyecto(proyecto )
+    print("===Eliminar Proyecto===")
+    try:
+        nombre_proyecto = input("Ingrese nombre del proyecto a eliminar: ")
+        proyecto = buscar_proyecto(nombre_proyecto)
+        if proyecto  is not None:
+            print(f"Eliminará la proyecto: {proyecto.get_nombre()}")
+            print("¿Está seguro?")
+            print("Si")
+            print("No")
+            resp=input("Seleccione una opción: ").strip()
+            if resp.lower()=="si":
+                eliminar_proyecto(proyecto)
+            elif resp.lower() == "no":
+                print("No se eliminó el proyecto")
+            else:
+                print("Opcion invalida. Operacion cancelada")
         else:
-            print("Proyecto no eliminado")
-    else:
-        print("Proyecto no encontrado")
+            print("Proyecto no encontrado")
+    except Exception as e:
+        print("Error al eliminar el proyecto: ", e)
+
 
 
 def assign_proyecto(): # Aquí iría la función para asignar un proyecto a un empleado

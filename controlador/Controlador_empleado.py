@@ -137,7 +137,7 @@ def mostrar_empleados():
     try:
         if conn is not None:
             cursor=conn.cursor()
-            cursor.execute("SELECT id, nombre, apellido, direccion, telefono, email, fecha_inicio_contrato, salario FROM empleados")
+            cursor.execute("SELECT id_empleado, nombre, apellido, direccion, telefono, email, fecha_inicio_contrato, salario FROM empleado")
             empleados_encontrados=cursor.fetchall()
             empleados=[]
             if len(empleados_encontrados)>0:

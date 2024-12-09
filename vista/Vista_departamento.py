@@ -70,10 +70,37 @@ def delete_departamento(): # Aquí iría la función para eliminar un departamen
         resp=int(input("Seleccione una opción: "))
         if resp == 1:
             eliminar_departamento(departamento)
+=======
+def delete_departamento():
+    print("=== Eliminar Departamento ===")
+    try:
+        # Solicitar el nombre del departamento a eliminar
+        nombre = input("Ingrese el nombre del departamento a eliminar: ")
+        
+        # Buscar el departamento
+        departamento = buscar_departamento(nombre)
+        
+        if departamento is not None:
+            print(f"Departamento encontrado: {departamento.get_nombre()}")
+            print("¿Está seguro que desea eliminarlo?")
+            print("Si")
+            print("No")
+            
+            # Solicitar confirmación
+            resp = input("Seleccione una opción: ").strip()
+            if resp.lower() == "si":
+                # Llamar al método para eliminar el departamento
+                eliminar_departamento(departamento)
+            elif resp.lower() == "no":
+                print("Operación cancelada.")
+            else:
+                print("Opción inválida. Operación cancelada.")
+>>>>>>> eb65c77272c03795c0dbbf28913aad866d36d7ff
         else:
-            print("Departamento no eliminado")
-    else:
-        print("Departamento no encontrado")
+            print("Departamento no encontrado.")
+    except Exception as e:
+        print(f"Error al eliminar el departamento: {e}")
+
 
 def vista_asignar_empleado_departamento(): # Aquí iría la función para asignar un departamento a un empleado
     print("=== Asignar Empleado a un Departamento ===")

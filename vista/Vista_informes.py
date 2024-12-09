@@ -22,28 +22,31 @@ def view_empleados():
         print("No hay empleados registrados")
  
 def view_proyectos():# proyecto
+    proyectos=[]
     proyectos=mostrar_proyectos()
-    if len(proyectos)>0:
+    if proyectos is not None and len(proyectos)>0:
         for proyecto in proyectos:
             print(proyecto)
-    else:
-        print("No hay proyectos registrados")
+        else:
+            print("No hay proyectos registrados")
 
 def view_departamentos():# Departamento 
+    departamentos=[]
     departamentos=mostrar_departamentos()
-    if len(departamentos)>0:
+    if departamentos is not None and len(departamentos)>0:
         for departamento in departamentos:
             print(departamento)
-    else:
-        print("No hay departamentos registrados")
+        else:
+            print("No hay departamentos registrados")
 
 def view_registro_tiempo():#3 empleado 
-    registro_tiempo=mostrar_registro_tiempo()
-    if len(registro_tiempo)>0:
-        for registro in registro_tiempo:
+    registros_tiempo=[]
+    registros_tiempo=mostrar_registro_tiempo()
+    if registros_tiempo is not None and len(registros_tiempo)>0:
+        for registro in registros_tiempo:
             print(registro) 
-    else:
-        print("No hay registros de tiempo")
+        else:
+            print("No hay registros de tiempo")
 
 def main_informes():
     op=-1
