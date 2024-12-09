@@ -2,11 +2,12 @@ from controlador.Controlador_empleado import agregar_empleado,eliminar_empleado,
 from modelo.Empleado import Empleado
 
 def menu_empleado():
-    print("____Menu Empleado____")
+    print("===== Menu Empleado =====")
     print("1. Registrar Empleado")
     print("2. Editar Empleado")
     print("3. Eliminar Empleado")
     print("0. Salir")
+    print("=========================")
     op = int(input("Ingrese una opción: "))
     return op 
 
