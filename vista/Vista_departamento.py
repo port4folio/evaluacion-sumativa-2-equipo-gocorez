@@ -58,22 +58,35 @@ def search_departamento():
         print("No se encontró un departamento con ese nombre.")
     return departamento
 
-def delete_departamento(): # Aquí iría la función para eliminar un departamento
-    nombre=input("Ingrese nombre del departamento a eliminar:")
-    departamento=buscar_departamento(nombre)
-    if departamento is not None:
-        print(f"Eliminar departamento {departamento.get_nombre()}")
-        print("¿Esta Seguro?")
-        print("1.-Si")
-        print("2.-No")
-        print("3.-Salir")
-        resp=(input("Seleccione una opción: "))
-        if resp.lower()=="si":
-            eliminar_departamento(departamento.get_nombre())
+def delete_departamento():
+    print("=== Eliminar Departamento ===")
+    try:
+        # Solicitar el nombre del departamento a eliminar
+        nombre = input("Ingrese el nombre del departamento a eliminar: ")
+        
+        # Buscar el departamento
+        departamento = buscar_departamento(nombre)
+        
+        if departamento is not None:
+            print(f"Departamento encontrado: {departamento.get_nombre()}")
+            print("¿Está seguro que desea eliminarlo?")
+            print("Si")
+            print("No")
+            
+            # Solicitar confirmación
+            resp = input("Seleccione una opción: ").strip()
+            if resp.lower() == "si":
+                # Llamar al método para eliminar el departamento
+                eliminar_departamento(departamento)
+            elif resp.lower() == "no":
+                print("Operación cancelada.")
+            else:
+                print("Opción inválida. Operación cancelada.")
         else:
-            print("Departamento no eliminado")
-    else:
-        print("Departamento no encontrado")
+            print("Departamento no encontrado.")
+    except Exception as e:
+        print(f"Error al eliminar el departamento: {e}")
+
 
 def vista_asignar_empleado_departamento(): # Aquí iría la función para asignar un departamento a un empleado
     print("=== Asignar Empleado a un Departamento ===")

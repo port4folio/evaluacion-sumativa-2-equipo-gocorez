@@ -16,7 +16,6 @@ def menu_principal():
     print("3.- Menu Proyectos")
     print("4.- Informes")
     print("0.- Salir")
-    
     opcion = int(input("Ingrese una opcion: "))
     return opcion
     

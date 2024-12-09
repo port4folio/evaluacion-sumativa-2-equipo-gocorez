@@ -62,7 +62,7 @@ def eliminar_departamento(departamento):
     try:
         if conn is not None:
             cursor=conn.cursor()
-            cursor.execute("DELETE FROM departamento WHERE nombre = %s",(departamento.get_nombre()))
+            cursor.execute("DELETE FROM departamento WHERE nombre = %s", (departamento.get_nombre(),))
             conn.commit()
             print("Departamento Eliminado")
     except Exception as e:
@@ -76,7 +76,7 @@ def mostrar_departamentos():
     try:
         if conn is not None:
             cursor = conn.cursor()
-            cursor.execute("SELECT id, nombre, gerente FROM departamento")
+            cursor.execute("SELECT id_departamento, nombre, gerente FROM departamento")
             departamentos = cursor.fetchall()  # Recupera todos los registros
 
             if departamentos:
