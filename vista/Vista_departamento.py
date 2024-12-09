@@ -70,7 +70,7 @@ def delete_departamento(): # Aquí iría la función para eliminar un departamen
         resp=int(input("Seleccione una opción: "))
         if resp == 1:
             eliminar_departamento(departamento)
-=======
+
 def delete_departamento():
     print("=== Eliminar Departamento ===")
     try:
@@ -95,7 +95,7 @@ def delete_departamento():
                 print("Operación cancelada.")
             else:
                 print("Opción inválida. Operación cancelada.")
->>>>>>> eb65c77272c03795c0dbbf28913aad866d36d7ff
+
         else:
             print("Departamento no encontrado.")
     except Exception as e:
