@@ -67,9 +67,9 @@ def delete_departamento(): # Aquí iría la función para eliminar un departamen
         print("1.-Si")
         print("2.-No")
         print("3.-Salir")
-        resp=(input("Seleccione una opción: "))
-        if resp.lower()=="si":
-            eliminar_departamento(departamento.get_nombre())
+        resp=int(input("Seleccione una opción: "))
+        if resp == 1:
+            eliminar_departamento(departamento)
         else:
             print("Departamento no eliminado")
     else:
