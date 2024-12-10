@@ -6,11 +6,11 @@ from vista.Vista_usuario import main_usuario
 from vista.Vista_indicadores import main_indicadores
 import os
 
-def limpiar_consola():
-        os.system('cls')   
+# def limpiar_consola():
+#         os.system('cls')   
 
 def menu_principal():
-    limpiar_consola()
+    #limpiar_consola()
     print("##### Menu Principal ##### ")
     print("____Elija una opción____")
     print("1.- Menu Empleados")

@@ -1,4 +1,6 @@
-from vista.Vista_menu import menu_principal
 
-menu_principal()
+from controlador.Controlador_autenticacion import hay_usuarios,autenticar
+from vista.Vista_usuario import add_user
 
+print("hola")
+    
