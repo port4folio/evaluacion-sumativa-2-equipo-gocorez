@@ -2,7 +2,7 @@ import requests
 import json
 from datetime import datetime
 from modelo.ConexionBD import conectar
-from modelo.Indicadores import Indicadores ## ver esto
+#from modelo.Indicadores import Indicadores ## ver esto
  
 def agregar_consulta(indicadores):
     conn=conectar()
@@ -10,8 +10,8 @@ def agregar_consulta(indicadores):
         if conn is not None:
             cursor = conn.cursor()
             cursor.execute(
-                "INSERT INTO registro_indicadores ( nombre_indicador,fecha_indicador,fecha_consulta,usuario_consulta,sitio_consulta) VALUES (%s,%s,%s,%s,%s)",
-                (indicadores.get_nombre_indicador(),indicadores.get_fecha_indicador(),indicadores.get_fecha_consulta(),indicadores.get_usuario_consulta(),indicadores.get_sitio_consulta())
+                "INSERT INTO registro_indicadores ( nombre_indicador,fecha_indicador,fecha_consulta,sitio_consulta) VALUES (%s,%s,%s,%s)",
+                (indicadores.get_nombre_indicador(),indicadores.get_fecha_indicador(),indicadores.get_fecha_consulta(),indicadores.get_sitio_consulta())
             )
             conn.commit()
             print("Consulta ingresada exitosamente. ")

@@ -33,17 +33,17 @@ def mostrar_menu():
     if datos:
         print("Datos obtenidos:", datos)
 
-    #     indicador_obj = Indicadores(
-    #         nombre_indicador=indicador,
-    #         fecha_indicador=fecha,
-    #         fecha_consulta=datetime.now().strftime('%Y-%m-%d'),  # Fecha actual de la consulta
-    #         usuario_consulta=1,  # Asumimos que el usuario es 1, puedes ajustar según sea necesario
-    #         sitio_consulta='mindicador.cl'
-    #     )
+        indicador_obj = Indicadores(
+            nombre_indicador=indicador,
+            fecha_indicador=fecha,
+            fecha_consulta=datetime.now().strftime('%Y-%m-%d'),  # Fecha actual de la consulta
+            usuario_consulta=1,  # Asumimos que el usuario es 1, puedes ajustar según sea necesario
+            sitio_consulta='mindicador.cl'
+        )
 
-    #     # Registrar la consulta en la base de datos
-    #     agregar_consulta(indicador_obj)
-    # else:
-    #     print("No se pudieron obtener los datos del indicador.")
+        # Registrar la consulta en la base de datos
+        agregar_consulta(indicador_obj)
+    else:
+        print("No se pudieron obtener los datos del indicador.")
 
 

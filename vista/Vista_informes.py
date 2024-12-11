@@ -1,4 +1,4 @@
-from modelo.Empleado import Empleado
+#from modelo.Empleado import Empleado
 from controlador.Controlador_empleado import mostrar_empleados
 from controlador.Controlador_proyecto import mostrar_proyectos,mostrar_registro_tiempo 
 from controlador.Controlador_departamento import mostrar_departamentos
