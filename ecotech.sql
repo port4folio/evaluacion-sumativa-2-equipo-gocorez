@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-12-2024 a las 21:15:45
+-- Tiempo de generación: 11-12-2024 a las 20:22:38
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -30,8 +30,15 @@ SET time_zone = "+00:00";
 CREATE TABLE `departamento` (
   `id_departamento` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
-  `id_gerente` int(11) DEFAULT NULL
+  `gerente` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `departamento`
+--
+
+INSERT INTO `departamento` (`id_departamento`, `nombre`, `gerente`) VALUES
+(1, 'RRHH', 'Luis');
 
 -- --------------------------------------------------------
 
@@ -56,7 +63,8 @@ CREATE TABLE `empleado` (
 --
 
 INSERT INTO `empleado` (`id_empleado`, `nombre`, `apellido`, `direccion`, `telefono`, `email`, `fecha_inicio_contrato`, `salario`, `id_departamento`) VALUES
-(24, 'Xito', 'Pro', 'Colliguay', '987654321', 'xito.pro@ecotech.com', '2022-05-10', 2000000, NULL);
+(24, 'Xitoncio', 'Pro', 'Colliguay', '987654321', 'xitoncio.pro@ecotech.com', '2022-05-10', 2200000, NULL),
+(25, 'Empleado', 'Uno', 'Calle Uno 1234', '989898989', 'empleado.uno@ecotech.com', '2020-02-23', 1200000, NULL);
 
 -- --------------------------------------------------------
 
@@ -85,6 +93,21 @@ CREATE TABLE `proyecto` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `registro_indicadores`
+--
+
+CREATE TABLE `registro_indicadores` (
+  `id` int(11) NOT NULL,
+  `nombre_indicador` varchar(100) DEFAULT NULL,
+  `fecha_indicador` date DEFAULT NULL,
+  `fecha_consulta` date DEFAULT NULL,
+  `usuario_consulta` int(11) DEFAULT NULL,
+  `sitio_consulta` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `registro_tiempo`
 --
 
@@ -97,6 +120,27 @@ CREATE TABLE `registro_tiempo` (
   `descripcion_tarea` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario`
+--
+
+CREATE TABLE `usuario` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(150) NOT NULL,
+  `edad` int(10) NOT NULL,
+  `passwd` varchar(150) NOT NULL,
+  `perfil` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`id`, `nombre`, `edad`, `passwd`, `perfil`) VALUES
+(2, 'Usuario Uno', 30, '$2b$12$HevGde87qAkZ0zPbkDZPkudnuoGjLMRs3z6znidRAtPDSU6onWkVO', 'Administrador');
+
 --
 -- Índices para tablas volcadas
 --
@@ -105,8 +149,7 @@ CREATE TABLE `registro_tiempo` (
 -- Indices de la tabla `departamento`
 --
 ALTER TABLE `departamento`
-  ADD PRIMARY KEY (`id_departamento`),
-  ADD KEY `id_gerente` (`id_gerente`);
+  ADD PRIMARY KEY (`id_departamento`);
 
 --
 -- Indices de la tabla `empleado`
@@ -129,12 +172,25 @@ ALTER TABLE `proyecto`
   ADD PRIMARY KEY (`id_proyecto`);
 
 --
+-- Indices de la tabla `registro_indicadores`
+--
+ALTER TABLE `registro_indicadores`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `usuario_consulta` (`usuario_consulta`);
+
+--
 -- Indices de la tabla `registro_tiempo`
 --
 ALTER TABLE `registro_tiempo`
   ADD PRIMARY KEY (`id_registro`),
   ADD KEY `id_empleado` (`id_empleado`),
   ADD KEY `id_proyecto` (`id_proyecto`);
+
+--
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -144,13 +200,13 @@ ALTER TABLE `registro_tiempo`
 -- AUTO_INCREMENT de la tabla `departamento`
 --
 ALTER TABLE `departamento`
-  MODIFY `id_departamento` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_departamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `empleado`
 --
 ALTER TABLE `empleado`
-  MODIFY `id_empleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_empleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `proyecto`
@@ -159,20 +215,26 @@ ALTER TABLE `proyecto`
   MODIFY `id_proyecto` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `registro_indicadores`
+--
+ALTER TABLE `registro_indicadores`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `registro_tiempo`
 --
 ALTER TABLE `registro_tiempo`
   MODIFY `id_registro` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- Restricciones para tablas volcadas
+-- AUTO_INCREMENT de la tabla `usuario`
 --
+ALTER TABLE `usuario`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Filtros para la tabla `departamento`
+-- Restricciones para tablas volcadas
 --
-ALTER TABLE `departamento`
-  ADD CONSTRAINT `departamento_ibfk_1` FOREIGN KEY (`id_gerente`) REFERENCES `empleado` (`id_empleado`);
 
 --
 -- Filtros para la tabla `empleado`
@@ -186,6 +248,12 @@ ALTER TABLE `empleado`
 ALTER TABLE `empleado_proyecto`
   ADD CONSTRAINT `empleado_proyecto_ibfk_1` FOREIGN KEY (`id_empleado`) REFERENCES `empleado` (`id_empleado`),
   ADD CONSTRAINT `empleado_proyecto_ibfk_2` FOREIGN KEY (`id_proyecto`) REFERENCES `proyecto` (`id_proyecto`);
+
+--
+-- Filtros para la tabla `registro_indicadores`
+--
+ALTER TABLE `registro_indicadores`
+  ADD CONSTRAINT `registro_indicadores_ibfk_1` FOREIGN KEY (`usuario_consulta`) REFERENCES `usuario` (`id`);
 
 --
 -- Filtros para la tabla `registro_tiempo`
