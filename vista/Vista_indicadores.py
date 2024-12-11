@@ -1,6 +1,8 @@
 #En esta clase lo necesario para poder hacer las consultas en en el controlador y poder registrar en él de ser necesario
 #import json
-from controlador.Controlador_indicadores import traer_indicador_por_fecha
+from controlador.Controlador_indicadores import traer_indicador_por_fecha,agregar_consulta
+from modelo.Indicadores import Indicadores ## Agregado Recien SF
+from datetime import datetime ## Agregado recien SF
 def mostrar_menu():
     print("Seleccione el indicador económico:")
     print("1. Unidad de Fomento (UF)")
@@ -30,5 +32,18 @@ def mostrar_menu():
     datos = traer_indicador_por_fecha(indicador, fecha )
     if datos:
         print("Datos obtenidos:", datos)
+
+    #     indicador_obj = Indicadores(
+    #         nombre_indicador=indicador,
+    #         fecha_indicador=fecha,
+    #         fecha_consulta=datetime.now().strftime('%Y-%m-%d'),  # Fecha actual de la consulta
+    #         usuario_consulta=1,  # Asumimos que el usuario es 1, puedes ajustar según sea necesario
+    #         sitio_consulta='mindicador.cl'
+    #     )
+
+    #     # Registrar la consulta en la base de datos
+    #     agregar_consulta(indicador_obj)
+    # else:
+    #     print("No se pudieron obtener los datos del indicador.")
 
 
