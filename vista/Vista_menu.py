@@ -6,11 +6,11 @@ from vista.Vista_usuario import main_usuario
 from vista.Vista_indicadores import main_indicadores
 import os
 
-# def limpiar_consola():
-#         os.system('cls')   
+def limpiar_consola():
+    os.system('cls')
 
-def menu_principal():
-    #limpiar_consola()
+def mostrar_menu_principal():
+    limpiar_consola()
     print("##### Menu Principal ##### ")
     print("____Elija una opción____")
     print("1.- Menu Empleados")
@@ -22,20 +22,21 @@ def menu_principal():
     print("===========================")
     opcion = int(input("Ingrese una opcion: "))
     return opcion
-    
-while True:
-   
-    opcion = menu_principal()
-    if opcion == 1:
-        main_empleado()
-    elif opcion == 2:
-        main_departamento()
-    elif opcion == 3:
-        main_proyecto()
-    elif opcion == 4:
-        main_informes()
-    elif opcion == 5:
-        main_usuario()
-    elif opcion == 6:
-        main_indicadores()
-    break  
+
+def iniciar_menu():
+    while True:
+        opcion = mostrar_menu_principal()
+        if opcion == 1:
+            main_empleado()
+        elif opcion == 2:
+            main_departamento()
+        elif opcion == 3:
+            main_proyecto()
+        elif opcion == 4:
+            main_informes()
+        elif opcion == 5:
+            main_usuario()
+        elif opcion == 6:
+            main_indicadores()
+        else:
+            print("Opción no válida, intente de nuevo.")

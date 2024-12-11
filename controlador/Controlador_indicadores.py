@@ -1,4 +1,5 @@
 import requests
-def traer_indicadores():
-    indicadores=requests.get("https://mindicador.cl/api").json()
-    return indicadores
+def traer_indicadores(indicador):
+    url = "https://mindicador.cl/api/{indicador}"
+    indicador=requests.get(url).json()
+    return indicador

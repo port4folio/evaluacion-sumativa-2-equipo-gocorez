@@ -21,6 +21,7 @@ def menu():
     return op
 
 def add_user():#Agregar Usuario 
+    print("====Registro de Usuario====")
     nombre=input("Ingrese nombre: ")
     edad=leer_numero("Ingrese edad: ")
     passwd=input("Ingrese contraseña: ")
