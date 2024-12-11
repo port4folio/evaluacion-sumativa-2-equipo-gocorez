@@ -1,34 +1,34 @@
 #En esta clase lo necesario para poder hacer las consultas en en el controlador y poder registrar en él de ser necesario
-import json
-from controlador.Controlador_indicadores import traer_indicadores
-def menu_indicadores():
-    print("1.- Mostrar valor uf")
-    print("0.- Salir")
-    op=int(input("Ingrese una opción: "))
-    return op
+#import json
+from controlador.Controlador_indicadores import traer_indicador_por_fecha
+def mostrar_menu():
+    print("Seleccione el indicador económico:")
+    print("1. Unidad de Fomento (UF)")
+    print("2. Índice de valor Promedio (IVP)")
+    print("3. Índice de Precio al Consumidor (IPC)")
+    print("4. Unidad Tributaria Mensual (UTM)")
+    print("5. Dólar Observado")
+    print("6. Euro")
+    opcion = input("Ingrese el número de la opción: ")
 
-def mostrar_indicadores():
-    indicador_seleccionado = input("Ingrese Indicador que desea consultar: uf , ivp, ipc, utm, dolar, euro: ")
-    indicadores=traer_indicadores(indicador_seleccionado)
-    print(json.dumps(indicadores,indent=4))
-    print(indicadores['uf']['valor'])
+    indicadores = {
+        "1": "uf",
+        "2": "ivp",
+        "3": "ipc",
+        "4": "utm",
+        "5": "dolar",
+        "6": "euro"
+    }
+
+    indicador = indicadores.get(opcion)
+    if not indicador:
+        print("Opción no válida")
+        return
+
+    fecha = input("Ingrese la fecha  : ")
+
+    datos = traer_indicador_por_fecha(indicador, fecha )
+    if datos:
+        print("Datos obtenidos:", datos)
 
 
-def main_indicadores():
-    while True:
-        op=menu_indicadores()
-        if op==1:
-            mostrar_uf()
-        elif op==2:
-            mostrar_ivp()
-        elif op==3:
-            mostrar_ipc()
-        elif op==4:
-            mostrar_utm()
-        elif op==5:
-            mostrar_dolar()
-        elif op==6:
-            mostrar_euro()
-        elif op==0:
-            print("Gracias por preferirnos")
-            break

@@ -3,14 +3,14 @@ from vista.Vista_departamento import main_departamento
 from vista.vista_proyecto import main_proyecto
 from vista.Vista_informes import main_informes
 from vista.Vista_usuario import main_usuario
-from vista.Vista_indicadores import main_indicadores
+from vista.Vista_indicadores import mostrar_menu
 import os
 
 def limpiar_consola():
     os.system('cls')
 
 def mostrar_menu_principal():
-    limpiar_consola()
+    #limpiar_consola()
     print("##### Menu Principal ##### ")
     print("____Elija una opción____")
     print("1.- Menu Empleados")
@@ -37,6 +37,6 @@ def iniciar_menu():
         elif opcion == 5:
             main_usuario()
         elif opcion == 6:
-            main_indicadores()
+            mostrar_menu()
         else:
             print("Opción no válida, intente de nuevo.")
