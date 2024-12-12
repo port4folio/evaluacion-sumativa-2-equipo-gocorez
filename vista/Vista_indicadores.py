@@ -3,7 +3,7 @@
 from controlador.Controlador_indicadores import traer_indicador_por_fecha,agregar_consulta
 from modelo.Indicadores import Indicadores ## Agregado Recien SF
 from datetime import datetime ## Agregado recien SF
-def mostrar_menu():
+def mostrar_menu(usuario):
     print("Seleccione el indicador económico:")
     print("1. Unidad de Fomento (UF)")
     print("2. Índice de valor Promedio (IVP)")
@@ -42,7 +42,7 @@ def mostrar_menu():
         )
 
         # Registrar la consulta en la base de datos
-        agregar_consulta(indicador_obj)
+        agregar_consulta(indicador_obj,usuario)
     else:
         print("No se pudieron obtener los datos del indicador.")
 

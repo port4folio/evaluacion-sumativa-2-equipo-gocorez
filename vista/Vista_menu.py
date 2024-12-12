@@ -23,7 +23,7 @@ def mostrar_menu_principal():
     opcion = int(input("Ingrese una opcion: "))
     return opcion
 
-def iniciar_menu():
+def iniciar_menu(usuario):
     while True:
         opcion = mostrar_menu_principal()
         if opcion == 1:
@@ -37,6 +37,6 @@ def iniciar_menu():
         elif opcion == 5:
             main_usuario()
         elif opcion == 6:
-            mostrar_menu()
+            mostrar_menu(usuario)
         else:
             print("Opción no válida, intente de nuevo.")
